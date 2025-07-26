@@ -1,0 +1,37 @@
+{
+	"name": "surrendf_pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "st_df_001",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "sfdfcsvsource",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Data_Flow_Pipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-07-25T05:56:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

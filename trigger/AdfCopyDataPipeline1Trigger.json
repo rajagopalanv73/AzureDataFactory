@@ -1,0 +1,25 @@
+{
+	"name": "AdfCopyDataPipeline1Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyDataPipeline1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 1,
+				"startTime": "2025-07-25T02:41:00",
+				"endTime": "2025-07-25T03:00:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

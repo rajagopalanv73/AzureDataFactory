@@ -1,0 +1,17 @@
+{
+	"name": "sqladdcolumn",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "surrenssdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "sales"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

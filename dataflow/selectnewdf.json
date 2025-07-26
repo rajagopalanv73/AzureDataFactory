@@ -1,0 +1,62 @@
+{
+	"name": "selectnewdf",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dscsv1",
+						"type": "DatasetReference"
+					},
+					"name": "selecttrfcsvread"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SelectSink",
+						"type": "DatasetReference"
+					},
+					"name": "selectsinktrf"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectcolumns"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderDate as date 'dd-MM-yyyy',",
+				"          ProductKey as short,",
+				"          Country as string,",
+				"          EnglishProductName as string,",
+				"          SalesAmount as double,",
+				"          TaxAmt as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> selecttrfcsvread",
+				"selecttrfcsvread select(mapColumn(",
+				"          DateofOrder = OrderDate,",
+				"          Country,",
+				"          ProductName = EnglishProductName,",
+				"          SalesAmount",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectcolumns",
+				"selectcolumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> selectsinktrf"
+			]
+		}
+	}
+}
