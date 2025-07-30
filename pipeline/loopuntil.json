@@ -1,0 +1,50 @@
+{
+	"name": "loopuntil",
+	"properties": {
+		"activities": [
+			{
+				"name": "LoopUntil",
+				"type": "Until",
+				"dependsOn": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.looptocontinue, ['no'])",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "ExecutePipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "VariableUsagePipeline",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"participantName": "done",
+									"trainingDate": "done"
+								}
+							}
+						}
+					],
+					"timeout": "0.12:00:00"
+				}
+			}
+		],
+		"parameters": {
+			"looptocontinue": {
+				"type": "string",
+				"defaultValue": "yes"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-07-26T04:27:50Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

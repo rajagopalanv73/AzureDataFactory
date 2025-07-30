@@ -1,0 +1,110 @@
+{
+	"name": "VariableUsagePipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "v_participant_name",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_participant_name",
+					"value": {
+						"value": "@pipeline().parameters.participantName",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "training_date",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "v_participant_name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_training_date",
+					"value": {
+						"value": "@pipeline().parameters.trainingDate",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "updateAttendance",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "training_date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_InsertDailyAttendance]",
+					"storedProcedureParameters": {
+						"ParticipantName": {
+							"value": {
+								"value": "@toUpper(variables('v_participant_name'))",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TrainingDate": {
+							"value": {
+								"value": "@formatDateTime(variables('v_training_date'))",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "surrenssdb",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"participantName": {
+				"type": "string"
+			},
+			"trainingDate": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"v_participant_name": {
+				"type": "String"
+			},
+			"v_training_date": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-07-26T04:17:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

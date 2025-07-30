@@ -1,0 +1,17 @@
+{
+	"name": "DS_SelectSink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "surrenssdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "selectordercolumns"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

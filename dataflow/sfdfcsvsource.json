@@ -1,0 +1,48 @@
+{
+	"name": "sfdfcsvsource",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "stcsvdssrc",
+						"type": "DatasetReference"
+					},
+					"name": "stsrccsv001"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "targetdataset",
+						"type": "DatasetReference"
+					},
+					"name": "stdfsqldbsink"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          DATE as date 'MM/dd/yyyy',",
+				"          COUNTRY as string,",
+				"          PRODUCT as string,",
+				"          SALES as double '000,000,000.000'",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> stsrccsv001",
+				"stsrccsv001 sink(allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> stdfsqldbsink"
+			]
+		}
+	}
+}

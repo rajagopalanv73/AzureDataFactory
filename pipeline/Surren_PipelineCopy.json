@@ -1,0 +1,80 @@
+{
+	"name": "Surren_PipelineCopy",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_xma",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "surrencontainer/surreninput/OrdersNew.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "surrencontainer/surrenoutput/CopyOrder.csv"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "surrenlinkedservice1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_xma",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_xma",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Data_Movement_Pipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-07-25T05:56:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

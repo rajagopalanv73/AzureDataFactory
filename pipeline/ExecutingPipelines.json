@@ -1,0 +1,30 @@
+{
+	"name": "ExecutingPipelines",
+	"properties": {
+		"activities": [
+			{
+				"name": "ExecutingPipelineActivity",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "VariableUsagePipeline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"participantName": "xyz",
+						"trainingDate": "2025-07-28"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-07-26T04:56:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

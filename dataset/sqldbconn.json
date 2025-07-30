@@ -1,0 +1,34 @@
+{
+	"name": "sqldbconn",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "surrenssdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COUNTRY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRODUCT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SALES",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DailySalesInfo"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,9 @@
+{
+	"name": "surrenadf",
+	"location": "westus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a700c789-5b41-4ff7-874a-416f1031da44",
+		"tenantId": "2d3d6721-6bb3-4ebf-b0d1-2ee52691f55d"
+	}
+}
