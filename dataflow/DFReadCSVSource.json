@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "DsSelectColumns2Db",
+						"type": "DatasetReference"
+					},
 					"name": "SelectedColumnsDfSink2Db"
 				}
 			],
@@ -44,8 +48,14 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
 				"SelectColumnsTrf sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> SelectedColumnsDfSink2Db"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> SelectedColumnsDfSink2Db"
 			]
 		}
 	}
