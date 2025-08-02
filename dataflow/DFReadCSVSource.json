@@ -54,7 +54,7 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
 				"SelectColumnsTrf sort(asc(Country, true),",
 				"     caseInsensitive: true) ~> SortOnSelectColumns",
-				"SortOnSelectColumns filter(ERROR_FUNCTION('')) ~> FilterForIndia",
+				"SortOnSelectColumns filter(Country=='India') ~> FilterForIndia",
 				"FilterForIndia sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
