@@ -15,25 +15,8 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
 					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "dscsv1",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			}
 		],
 		"folder": {
