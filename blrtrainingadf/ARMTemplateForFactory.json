@@ -201,6 +201,9 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
+				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T04:56:05Z"
 			},
@@ -441,6 +444,9 @@
 						"type": "String",
 						"defaultValue": "newfolder"
 					}
+				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
 				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T03:38:56Z"
@@ -740,6 +746,9 @@
 						"type": "String"
 					}
 				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
+				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T04:17:59Z"
 			},
@@ -847,6 +856,9 @@
 						"type": "string",
 						"defaultValue": "yes"
 					}
+				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
 				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T04:27:50Z"
@@ -1910,6 +1922,9 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Data_Flow_Pipelines"
 				},
 				"annotations": []
 			},

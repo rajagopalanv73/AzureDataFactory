@@ -129,6 +129,9 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"folder": {
+					"name": "Data_Flow_Pipelines"
+				},
 				"annotations": []
 			},
 			"dependsOn": []

@@ -329,6 +329,9 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
+				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T04:56:05Z"
 			},
@@ -568,6 +571,9 @@
 						"defaultValue": "newfolder"
 					}
 				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
+				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T03:38:56Z"
 			},
@@ -797,6 +803,9 @@
 						"type": "string",
 						"defaultValue": "yes"
 					}
+				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
 				},
 				"annotations": [],
 				"lastPublishTime": "2025-07-26T04:27:50Z"
