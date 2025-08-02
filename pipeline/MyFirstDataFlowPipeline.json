@@ -27,6 +27,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "Data_Flow_Pipelines"
+		},
 		"annotations": []
 	}
 }

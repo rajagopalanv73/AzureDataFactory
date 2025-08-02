@@ -35,7 +35,7 @@
 						"childItems"
 					],
 					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings",
+						"type": "AzureBlobFSReadSettings",
 						"recursive": true
 					},
 					"formatSettings": {
@@ -226,6 +226,9 @@
 				"type": "String",
 				"defaultValue": "newfolder"
 			}
+		},
+		"folder": {
+			"name": "Data_Movement_Pipelines"
 		},
 		"annotations": [],
 		"lastPublishTime": "2025-07-26T03:38:56Z"
