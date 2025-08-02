@@ -15,7 +15,7 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "select1"
+					"name": "SelectColumnsTrf"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +39,7 @@
 				"          TaxAmt",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf"
 			]
 		}
 	}
