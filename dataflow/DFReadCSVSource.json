@@ -12,7 +12,11 @@
 					"name": "DFSelectSourceStream"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "SelectColumnsTrf"
@@ -37,7 +41,11 @@
 				"          {Sales Amount} = SalesAmount",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf"
+				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
+				"SelectColumnsTrf sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
