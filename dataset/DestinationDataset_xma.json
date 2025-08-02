@@ -2,17 +2,17 @@
 	"name": "DestinationDataset_xma",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Surren_BlobStorage_1",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
+				"type": "AzureBlobFSLocation",
 				"fileName": "CopyOrder.csv",
 				"folderPath": "surrenoutput",
-				"container": "surrencontainer"
+				"fileSystem": "surrencontainer"
 			}
 		}
 	},

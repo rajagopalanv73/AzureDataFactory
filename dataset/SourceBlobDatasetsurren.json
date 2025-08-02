@@ -2,17 +2,17 @@
 	"name": "SourceBlobDatasetsurren",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Surren_BlobStorage_1",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
+				"type": "AzureBlobFSLocation",
 				"fileName": "emp.txt",
 				"folderPath": "adf_input",
-				"container": "surrencontainer"
+				"fileSystem": "surrencontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
