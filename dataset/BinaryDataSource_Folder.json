@@ -2,10 +2,6 @@
 	"name": "BinaryDataSource_Folder",
 	"properties": {
 		"description": "It describes the folder in the data source store.",
-		"linkedServiceName": {
-			"referenceName": "Surren_BlobStorage_1",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"Container": {
 				"type": "String"
@@ -15,20 +11,7 @@
 			}
 		},
 		"annotations": [],
-		"type": "Binary",
-		"typeProperties": {
-			"location": {
-				"type": "AzureBlobStorageLocation",
-				"folderPath": {
-					"value": "@{dataset().Directory}",
-					"type": "Expression"
-				},
-				"container": {
-					"value": "@{dataset().Container}",
-					"type": "Expression"
-				}
-			}
-		}
+		"type": "Binary"
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
