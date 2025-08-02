@@ -16,7 +16,7 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          OrderDate as date,",
+				"          OrderDate as date 'dd-MM-yyyy',",
 				"          ProductKey as short,",
 				"          Country as string,",
 				"          EnglishProductName as string,",
