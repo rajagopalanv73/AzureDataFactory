@@ -32,11 +32,9 @@
 				"     ignoreNoFilesFound: false) ~> DFSelectSourceStream",
 				"DFSelectSourceStream select(mapColumn(",
 				"          {Order Date} = OrderDate,",
-				"          {Product Key} = ProductKey,",
 				"          Country,",
 				"          {English Product Name} = EnglishProductName,",
-				"          {Sales Amount} = SalesAmount,",
-				"          {Tax Amt} = TaxAmt",
+				"          {Sales Amount} = SalesAmount",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf"
