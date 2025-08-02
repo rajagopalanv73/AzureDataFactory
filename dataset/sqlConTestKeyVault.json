@@ -1,0 +1,16 @@
+{
+	"name": "sqlConTestKeyVault",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sqlConnKeyVaultCredentials",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "keyvaulttable"
+		}
+	}
+}
