@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "CountrySortedSelectedDbSink",
 						"type": "DatasetReference"
 					},
 					"name": "SelectedColumnsDfSink2Db"
