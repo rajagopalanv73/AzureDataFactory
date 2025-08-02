@@ -1,0 +1,9 @@
+{
+	"name": "DF_Select_Pipeline",
+	"properties": {
+		"folder": {
+			"name": "Data_Flow_Pipelines"
+		},
+		"annotations": []
+	}
+}
