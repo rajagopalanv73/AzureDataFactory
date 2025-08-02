@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AdfSurrenSqlConnection'"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabaseConndf_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseConndf'"
+		},
 		"CSVLinkedService_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'CSVLinkedService'"
@@ -31,14 +39,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'surrenssdb'"
 		},
-		"AzureDataLakeStorage1_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
-		},
-		"AzureSqlDatabaseConndf_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseConndf'"
-		},
 		"AdfSurrenSqlConnection_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "surrenss.database.windows.net"
@@ -48,6 +48,22 @@
 			"defaultValue": "surrendb1"
 		},
 		"AdfSurrenSqlConnection_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "surren"
 		},
@@ -72,22 +88,6 @@
 			"defaultValue": "surrendb1"
 		},
 		"surrenssdb_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "surren"
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "surrenss.database.windows.net"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "surrendb1"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "surren"
 		},
@@ -121,6 +121,12 @@
 					"AdfSurrenSqlConnection_password": {
 						"value": "[parameters('AdfSurrenSqlConnection_password')]"
 					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureSqlDatabaseConndf_password": {
+						"value": "[parameters('AzureSqlDatabaseConndf_password')]"
+					},
 					"CSVLinkedService_accountKey": {
 						"value": "[parameters('CSVLinkedService_accountKey')]"
 					},
@@ -136,12 +142,6 @@
 					"surrenssdb_password": {
 						"value": "[parameters('surrenssdb_password')]"
 					},
-					"AzureDataLakeStorage1_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
-					},
-					"AzureSqlDatabaseConndf_password": {
-						"value": "[parameters('AzureSqlDatabaseConndf_password')]"
-					},
 					"AdfSurrenSqlConnection_properties_typeProperties_server": {
 						"value": "[parameters('AdfSurrenSqlConnection_properties_typeProperties_server')]"
 					},
@@ -150,6 +150,18 @@
 					},
 					"AdfSurrenSqlConnection_properties_typeProperties_userName": {
 						"value": "[parameters('AdfSurrenSqlConnection_properties_typeProperties_userName')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_userName')]"
 					},
 					"CSVLinkedService_properties_typeProperties_url": {
 						"value": "[parameters('CSVLinkedService_properties_typeProperties_url')]"
@@ -168,18 +180,6 @@
 					},
 					"surrenssdb_properties_typeProperties_userName": {
 						"value": "[parameters('surrenssdb_properties_typeProperties_userName')]"
-					},
-					"AzureDataLakeStorage1_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
-					},
-					"AzureSqlDatabaseConndf_properties_typeProperties_server": {
-						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_server')]"
-					},
-					"AzureSqlDatabaseConndf_properties_typeProperties_database": {
-						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_database')]"
-					},
-					"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
-						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_userName')]"
 					}
 				}
 			},

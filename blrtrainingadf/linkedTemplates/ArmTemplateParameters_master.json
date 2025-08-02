@@ -8,6 +8,12 @@
 		"AdfSurrenSqlConnection_password": {
 			"value": ""
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabaseConndf_password": {
+			"value": ""
+		},
 		"CSVLinkedService_accountKey": {
 			"value": ""
 		},
@@ -23,12 +29,6 @@
 		"surrenssdb_password": {
 			"value": ""
 		},
-		"AzureDataLakeStorage1_accountKey": {
-			"value": ""
-		},
-		"AzureSqlDatabaseConndf_password": {
-			"value": ""
-		},
 		"AdfSurrenSqlConnection_properties_typeProperties_server": {
 			"value": "surrenss.database.windows.net"
 		},
@@ -36,6 +36,18 @@
 			"value": "surrendb1"
 		},
 		"AdfSurrenSqlConnection_properties_typeProperties_userName": {
+			"value": "surren"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+			"value": "surrenss.database.windows.net"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+			"value": "surrendb1"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"value": "surren"
 		},
 		"CSVLinkedService_properties_typeProperties_url": {
@@ -54,18 +66,6 @@
 			"value": "surrendb1"
 		},
 		"surrenssdb_properties_typeProperties_userName": {
-			"value": "surren"
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"value": "https://surrendl1.dfs.core.windows.net/"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
-			"value": "surrenss.database.windows.net"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
-			"value": "surrendb1"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"value": "surren"
 		},
 		"containerUri": {

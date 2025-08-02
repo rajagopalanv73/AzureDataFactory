@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AdfSurrenSqlConnection'"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabaseConndf_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseConndf'"
+		},
 		"CSVLinkedService_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'CSVLinkedService'"
@@ -31,14 +39,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'surrenssdb'"
 		},
-		"AzureDataLakeStorage1_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
-		},
-		"AzureSqlDatabaseConndf_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseConndf'"
-		},
 		"AdfSurrenSqlConnection_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "surrenss.database.windows.net"
@@ -48,6 +48,22 @@
 			"defaultValue": "surrendb1"
 		},
 		"AdfSurrenSqlConnection_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "surren"
 		},
@@ -72,22 +88,6 @@
 			"defaultValue": "surrendb1"
 		},
 		"surrenssdb_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "surren"
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "surrenss.database.windows.net"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "surrendb1"
-		},
-		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "surren"
 		}
@@ -169,6 +169,56 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceBlobDatasetsurren')]",
 				"[concat(variables('factoryId'), '/datasets/OutputSqlDatasetSurren')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_Select_Pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SelectDataFlowActivity",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DFReadCSVSource",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"DFSelectSourceStream": {},
+									"SelectedColumnsDfSink2Db": {}
+								},
+								"linkedServiceParameters": {}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Data_Flow_Pipelines"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/DFReadCSVSource')]"
 			]
 		},
 		{
@@ -455,6 +505,55 @@
 				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_Folder')]",
 				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_File')]",
 				"[concat(variables('factoryId'), '/datasets/BinaryDataDestination')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MyFirstDataFlowPipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "MyFirstDataFlowActivity",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "MyFirstCSVDataSetSrc",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"ReadCSVSrc": {},
+									"CSVDataFlowSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Data_Flow_Pipelines"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/MyFirstCSVDataSetSrc')]"
 			]
 		},
 		{
@@ -1231,6 +1330,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DataFlowSinkDataSetForSQLDb')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "TrfdOrdersNewDataFlow"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DestinationDataset_xma')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1273,6 +1393,60 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AdfSurrenSqlConnection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ReadCSVDataFlowDataSetOrdersNew')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "OrdersNew.csv",
+						"folderPath": "surreninput",
+						"fileSystem": "surrencontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "String"
+					},
+					{
+						"name": "ProductKey",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "EnglishProductName",
+						"type": "String"
+					},
+					{
+						"name": "SalesAmount",
+						"type": "String"
+					},
+					{
+						"name": "TaxAmt",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -1589,6 +1763,45 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseConndf')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSqlDatabaseConndf_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CSVLinkedService')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1703,6 +1916,62 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/CopyDataPipeline1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MyFirstCSVDataSetSrc')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ReadCSVDataFlowDataSetOrdersNew",
+								"type": "DatasetReference"
+							},
+							"name": "ReadCSVSrc"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DataFlowSinkDataSetForSQLDb",
+								"type": "DatasetReference"
+							},
+							"name": "CSVDataFlowSink"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          OrderDate as date 'dd-MM-yyyy',",
+						"          ProductKey as short,",
+						"          Country as string,",
+						"          EnglishProductName as string,",
+						"          SalesAmount as double,",
+						"          TaxAmt as double",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> ReadCSVSrc",
+						"ReadCSVSrc sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> CSVDataFlowSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ReadCSVDataFlowDataSetOrdersNew')]",
+				"[concat(variables('factoryId'), '/datasets/DataFlowSinkDataSetForSQLDb')]"
 			]
 		},
 		{
@@ -1884,56 +2153,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/MyFirstDataFlowPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "MyFirstDataFlowActivity",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "MyFirstCSVDataSetSrc",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"ReadCSVSrc": {},
-									"CSVDataFlowSink": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "Data_Flow_Pipelines"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/MyFirstCSVDataSetSrc')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/MyFirstCSVDataSetSrc')]",
+			"name": "[concat(parameters('factoryName'), '/DFReadCSVSource')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1945,19 +2165,29 @@
 								"referenceName": "ReadCSVDataFlowDataSetOrdersNew",
 								"type": "DatasetReference"
 							},
-							"name": "ReadCSVSrc"
+							"name": "DFSelectSourceStream"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "DataFlowSinkDataSetForSQLDb",
+								"referenceName": "CountrySortedSelectedDbSink",
 								"type": "DatasetReference"
 							},
-							"name": "CSVDataFlowSink"
+							"name": "SelectedColumnsDfSink2Db"
 						}
 					],
-					"transformations": [],
+					"transformations": [
+						{
+							"name": "SelectColumnsTrf"
+						},
+						{
+							"name": "SortOnSelectColumns"
+						},
+						{
+							"name": "FilterForIndia"
+						}
+					],
 					"scriptLines": [
 						"source(output(",
 						"          OrderDate as date 'dd-MM-yyyy',",
@@ -1969,8 +2199,19 @@
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> ReadCSVSrc",
-						"ReadCSVSrc sink(allowSchemaDrift: true,",
+						"     ignoreNoFilesFound: false) ~> DFSelectSourceStream",
+						"DFSelectSourceStream select(mapColumn(",
+						"          {Order Date} = OrderDate,",
+						"          Country,",
+						"          {English Product Name} = EnglishProductName,",
+						"          {Sales Amount} = SalesAmount",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
+						"SelectColumnsTrf sort(asc(Country, true),",
+						"     caseInsensitive: true) ~> SortOnSelectColumns",
+						"SortOnSelectColumns filter(Country=='Canada') ~> FilterForIndia",
+						"FilterForIndia sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
 						"     insertable:true,",
@@ -1979,88 +2220,17 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> CSVDataFlowSink"
+						"     errorHandlingOption: 'stopOnFirstError') ~> SelectedColumnsDfSink2Db"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ReadCSVDataFlowDataSetOrdersNew')]",
-				"[concat(variables('factoryId'), '/datasets/DataFlowSinkDataSetForSQLDb')]"
+				"[concat(variables('factoryId'), '/datasets/CountrySortedSelectedDbSink')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ReadCSVDataFlowDataSetOrdersNew')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "OrdersNew.csv",
-						"folderPath": "surreninput",
-						"fileSystem": "surrencontainer"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "OrderDate",
-						"type": "String"
-					},
-					{
-						"name": "ProductKey",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "EnglishProductName",
-						"type": "String"
-					},
-					{
-						"name": "SalesAmount",
-						"type": "String"
-					},
-					{
-						"name": "TaxAmt",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DataFlowSinkDataSetForSQLDb')]",
+			"name": "[concat(parameters('factoryName'), '/DsSelectColumns2Db')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -2073,7 +2243,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "TrfdOrdersNewDataFlow"
+					"table": "OrdersNewSelectedColumns"
 				}
 			},
 			"dependsOn": [
@@ -2081,26 +2251,25 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseConndf')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/CountrySortedSelectedDbSink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
 				"annotations": [],
-				"type": "AzureSqlDatabase",
+				"type": "AzureSqlTable",
+				"schema": [],
 				"typeProperties": {
-					"server": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_server')]",
-					"database": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('AzureSqlDatabaseConndf_password')]"
-					}
+					"schema": "dbo",
+					"table": "CountrySortedSelected"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
 		}
 	]
 }
