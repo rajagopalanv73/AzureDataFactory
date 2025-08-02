@@ -24,6 +24,9 @@
 			"transformations": [
 				{
 					"name": "SelectColumnsTrf"
+				},
+				{
+					"name": "Sort"
 				}
 			],
 			"scriptLines": [
@@ -46,7 +49,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
-				"SelectColumnsTrf sink(allowSchemaDrift: true,",
+				"SelectColumnsTrf sort(asc(ERROR_FUNCTION(''), true)) ~> Sort",
+				"Sort sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
