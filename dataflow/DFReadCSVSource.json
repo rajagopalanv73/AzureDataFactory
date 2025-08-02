@@ -27,6 +27,9 @@
 				},
 				{
 					"name": "SortOnSelectColumns"
+				},
+				{
+					"name": "FilterForIndia"
 				}
 			],
 			"scriptLines": [
@@ -51,7 +54,8 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
 				"SelectColumnsTrf sort(asc(Country, true),",
 				"     caseInsensitive: true) ~> SortOnSelectColumns",
-				"SortOnSelectColumns sink(allowSchemaDrift: true,",
+				"SortOnSelectColumns filter(ERROR_FUNCTION('')) ~> FilterForIndia",
+				"FilterForIndia sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
