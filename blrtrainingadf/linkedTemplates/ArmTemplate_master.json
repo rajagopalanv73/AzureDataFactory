@@ -1,0 +1,229 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "blrtrainingadf"
+		},
+		"AdfSurrenSqlConnection_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AdfSurrenSqlConnection'"
+		},
+		"CSVLinkedService_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'CSVLinkedService'"
+		},
+		"Surren_BlobStorage_1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Surren_BlobStorage_1'"
+		},
+		"stdflkdsvc001_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'stdflkdsvc001'"
+		},
+		"surrenlinkedservice1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'surrenlinkedservice1'"
+		},
+		"surrenssdb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'surrenssdb'"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabaseConndf_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseConndf'"
+		},
+		"AdfSurrenSqlConnection_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"AdfSurrenSqlConnection_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"AdfSurrenSqlConnection_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
+		},
+		"CSVLinkedService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"stdflkdsvc001_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"surrenlinkedservice1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"surrenssdb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"surrenssdb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"surrenssdb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "blrtrainingadf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AdfSurrenSqlConnection_password": {
+						"value": "[parameters('AdfSurrenSqlConnection_password')]"
+					},
+					"CSVLinkedService_accountKey": {
+						"value": "[parameters('CSVLinkedService_accountKey')]"
+					},
+					"Surren_BlobStorage_1_connectionString": {
+						"value": "[parameters('Surren_BlobStorage_1_connectionString')]"
+					},
+					"stdflkdsvc001_accountKey": {
+						"value": "[parameters('stdflkdsvc001_accountKey')]"
+					},
+					"surrenlinkedservice1_accountKey": {
+						"value": "[parameters('surrenlinkedservice1_accountKey')]"
+					},
+					"surrenssdb_password": {
+						"value": "[parameters('surrenssdb_password')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureSqlDatabaseConndf_password": {
+						"value": "[parameters('AzureSqlDatabaseConndf_password')]"
+					},
+					"AdfSurrenSqlConnection_properties_typeProperties_server": {
+						"value": "[parameters('AdfSurrenSqlConnection_properties_typeProperties_server')]"
+					},
+					"AdfSurrenSqlConnection_properties_typeProperties_database": {
+						"value": "[parameters('AdfSurrenSqlConnection_properties_typeProperties_database')]"
+					},
+					"AdfSurrenSqlConnection_properties_typeProperties_userName": {
+						"value": "[parameters('AdfSurrenSqlConnection_properties_typeProperties_userName')]"
+					},
+					"CSVLinkedService_properties_typeProperties_url": {
+						"value": "[parameters('CSVLinkedService_properties_typeProperties_url')]"
+					},
+					"stdflkdsvc001_properties_typeProperties_url": {
+						"value": "[parameters('stdflkdsvc001_properties_typeProperties_url')]"
+					},
+					"surrenlinkedservice1_properties_typeProperties_url": {
+						"value": "[parameters('surrenlinkedservice1_properties_typeProperties_url')]"
+					},
+					"surrenssdb_properties_typeProperties_server": {
+						"value": "[parameters('surrenssdb_properties_typeProperties_server')]"
+					},
+					"surrenssdb_properties_typeProperties_database": {
+						"value": "[parameters('surrenssdb_properties_typeProperties_database')]"
+					},
+					"surrenssdb_properties_typeProperties_userName": {
+						"value": "[parameters('surrenssdb_properties_typeProperties_userName')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "blrtrainingadf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blrtrainingadf_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "blrtrainingadf_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blrtrainingadf_ArmTemplate_1')]"
+			]
+		}
+	]
+}

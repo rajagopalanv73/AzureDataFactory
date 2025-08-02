@@ -1,0 +1,78 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "blrtrainingadf"
+		},
+		"AdfSurrenSqlConnection_password": {
+			"value": ""
+		},
+		"CSVLinkedService_accountKey": {
+			"value": ""
+		},
+		"Surren_BlobStorage_1_connectionString": {
+			"value": ""
+		},
+		"stdflkdsvc001_accountKey": {
+			"value": ""
+		},
+		"surrenlinkedservice1_accountKey": {
+			"value": ""
+		},
+		"surrenssdb_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabaseConndf_password": {
+			"value": ""
+		},
+		"AdfSurrenSqlConnection_properties_typeProperties_server": {
+			"value": "surrenss.database.windows.net"
+		},
+		"AdfSurrenSqlConnection_properties_typeProperties_database": {
+			"value": "surrendb1"
+		},
+		"AdfSurrenSqlConnection_properties_typeProperties_userName": {
+			"value": "surren"
+		},
+		"CSVLinkedService_properties_typeProperties_url": {
+			"value": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"stdflkdsvc001_properties_typeProperties_url": {
+			"value": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"surrenlinkedservice1_properties_typeProperties_url": {
+			"value": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"surrenssdb_properties_typeProperties_server": {
+			"value": "surrenss.database.windows.net"
+		},
+		"surrenssdb_properties_typeProperties_database": {
+			"value": "surrendb1"
+		},
+		"surrenssdb_properties_typeProperties_userName": {
+			"value": "surren"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
+			"value": "surrenss.database.windows.net"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_database": {
+			"value": "surrendb1"
+		},
+		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
+			"value": "surren"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
