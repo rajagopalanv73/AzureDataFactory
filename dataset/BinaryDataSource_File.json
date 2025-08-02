@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "It describes the file in the data source store.",
 		"linkedServiceName": {
-			"referenceName": "Surren_BlobStorage_1",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -21,7 +21,7 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
+				"type": "AzureBlobFSLocation",
 				"fileName": {
 					"value": "@dataset().filename",
 					"type": "Expression"
@@ -30,7 +30,7 @@
 					"value": "@{dataset().Directory}",
 					"type": "Expression"
 				},
-				"container": {
+				"fileSystem": {
 					"value": "@{dataset().Container}",
 					"type": "Expression"
 				}
