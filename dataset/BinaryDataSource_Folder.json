@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "It describes the folder in the data source store.",
 		"linkedServiceName": {
-			"referenceName": "Surren_BlobStorage_1",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -18,7 +18,7 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobFSLocation"
 			}
 		}
 	},
