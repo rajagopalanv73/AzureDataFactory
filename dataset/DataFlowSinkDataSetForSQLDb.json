@@ -1,0 +1,16 @@
+{
+	"name": "DataFlowSinkDataSetForSQLDb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseConndf",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "OrdersNewDataFlow"
+		}
+	}
+}
