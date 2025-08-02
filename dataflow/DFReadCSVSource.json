@@ -14,7 +14,11 @@
 			],
 			"sinks": [
 				{
-					"name": "sink1"
+					"dataset": {
+						"referenceName": "DataFlowSinkDataSetForSQLDb",
+						"type": "DatasetReference"
+					},
+					"name": "SelectedColumnsDfSink2Db"
 				}
 			],
 			"transformations": [
@@ -44,8 +48,14 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
 				"SelectColumnsTrf sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> SelectedColumnsDfSink2Db"
 			]
 		}
 	}
