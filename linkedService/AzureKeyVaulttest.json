@@ -1,0 +1,10 @@
+{
+	"name": "AzureKeyVaulttest",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kvsurrentechdev.vault.azure.net/"
+		}
+	}
+}
