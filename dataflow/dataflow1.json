@@ -20,7 +20,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "JoinExpre"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          ID as integer,",
@@ -42,7 +46,12 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> JoinSecondTableSource"
+				"     format: 'table') ~> JoinSecondTableSource",
+				"JoinTable1Source join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'outer',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinExpre"
 			]
 		}
 	}
