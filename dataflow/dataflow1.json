@@ -5,14 +5,30 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "JoinDFDataset",
+						"type": "DatasetReference"
+					},
 					"name": "JoinTable1Source"
+				},
+				{
+					"name": "source1"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
+				"source(output(",
+				"          ID as integer,",
+				"          FirstName as string,",
+				"          LastName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> JoinTable1Source",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> JoinTable1Source"
+				"     validateSchema: false) ~> source1"
 			]
 		}
 	}
