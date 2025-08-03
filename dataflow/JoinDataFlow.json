@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "JoinDataFlow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -21,6 +21,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "JoinSQLdbSinkStream",
+						"type": "DatasetReference"
+					},
 					"name": "JoinDummyTableSink"
 				}
 			],
@@ -58,8 +62,14 @@
 				"     broadcast: 'auto')~> JoinExpression1",
 				"JoinExpression1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> JoinDummyTableSink"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> JoinDummyTableSink"
 			]
 		}
 	}
