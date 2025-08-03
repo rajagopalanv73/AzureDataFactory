@@ -19,7 +19,11 @@
 					"name": "JoinSecondTableSource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "JoinDummyTableSink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "JoinExpression1"
@@ -51,7 +55,11 @@
 				"     joinType:'outer',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> JoinExpression1"
+				"     broadcast: 'auto')~> JoinExpression1",
+				"JoinExpression1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> JoinDummyTableSink"
 			]
 		}
 	}
