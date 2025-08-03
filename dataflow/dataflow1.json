@@ -12,7 +12,11 @@
 					"name": "JoinTable1Source"
 				},
 				{
-					"name": "source1"
+					"dataset": {
+						"referenceName": "JoinDFSecondDataSet",
+						"type": "DatasetReference"
+					},
+					"name": "JoinSecondTableSource"
 				}
 			],
 			"sinks": [],
@@ -27,8 +31,18 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> JoinTable1Source",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1"
+				"source(output(",
+				"          DATE as string,",
+				"          COUNTRY as string,",
+				"          PRODUCT as string,",
+				"          SALES as string,",
+				"          Filename as string,",
+				"          Author as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> JoinSecondTableSource"
 			]
 		}
 	}

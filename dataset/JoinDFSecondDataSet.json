@@ -1,0 +1,41 @@
+{
+	"name": "JoinDFSecondDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseConndf",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COUNTRY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRODUCT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SALES",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Filename",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Author",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "sales"
+		}
+	}
+}
