@@ -19,7 +19,7 @@
 				"          EmpID as short,",
 				"          FirstName as string,",
 				"          LastName as string,",
-				"          StartDate as date,",
+				"          StartDate as string,",
 				"          ExitDate as string,",
 				"          Title as string,",
 				"          Supervisor as string,",
