@@ -12,7 +12,11 @@
 					"name": "EmpDataSetSource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "EmpDataSink"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -45,7 +49,11 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> EmpDataSetSource"
+				"     ignoreNoFilesFound: false) ~> EmpDataSetSource",
+				"EmpDataSetSource sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> EmpDataSink"
 			]
 		}
 	}
