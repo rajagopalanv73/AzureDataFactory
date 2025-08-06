@@ -22,6 +22,12 @@
 						},
 						"type": "NotebookReference"
 					},
+					"parameters": {
+						"textdata": {
+							"value": "",
+							"type": "string"
+						}
+					},
 					"snapshot": true,
 					"sparkPool": {
 						"referenceName": {
