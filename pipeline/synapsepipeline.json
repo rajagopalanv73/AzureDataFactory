@@ -24,7 +24,10 @@
 					},
 					"parameters": {
 						"textdata": {
-							"value": "",
+							"value": {
+								"value": "Error message: hash_empty_error: Hash value cannot be processed because it is empty. Please verify that your redirectUri is not clearing the hash. For more visit: aka.ms/msaljs/browser-errors",
+								"type": "Expression"
+							},
 							"type": "string"
 						}
 					},
