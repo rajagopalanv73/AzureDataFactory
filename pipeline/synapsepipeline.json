@@ -15,7 +15,30 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"snapshot": true
+					"notebook": {
+						"referenceName": {
+							"value": "14_Word_count_PySpark_Program_Practical",
+							"type": "Expression"
+						},
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": {
+							"value": "Spark1",
+							"type": "Expression"
+						},
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Small",
+					"conf": {
+						"spark.dynamicAllocation.enabled": false
+					},
+					"driverSize": "Small"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseArtifacts1",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
