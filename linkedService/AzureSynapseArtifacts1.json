@@ -1,0 +1,12 @@
+{
+	"name": "AzureSynapseArtifacts1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSynapseArtifacts",
+		"typeProperties": {
+			"endpoint": "https://stsynworkspace001.dev.azuresynapse.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/8774ea03-f374-4890-bea0-d9a4a9430be4/resourceGroups/SynapseResourceGroup/providers/Microsoft.Synapse/workspaces/stsynworkspace001"
+		}
+	}
+}
