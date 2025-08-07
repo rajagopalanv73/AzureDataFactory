@@ -52,11 +52,19 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "pipelineReturnValue",
-					"setSystemVariable": true
+					"variableName": "return_value",
+					"value": {
+						"value": "@activity('returnvaluenotebook').output.result",
+						"type": "Expression"
+					}
 				}
 			}
 		],
+		"variables": {
+			"return_value": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
