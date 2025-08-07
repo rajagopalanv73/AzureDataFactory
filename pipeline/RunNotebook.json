@@ -53,7 +53,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "returned_value_from_notebook",
-					"value": "@activity('RunNotebook').output.result.result\n"
+					"value": {
+						"value": "@activity('returnvaluenotebook').output.result.result\n\n",
+						"type": "Expression"
+					}
 				}
 			}
 		],
