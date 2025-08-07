@@ -54,7 +54,7 @@
 				"typeProperties": {
 					"variableName": "returned_value_from_notebook",
 					"value": {
-						"value": "@activity('returnvaluenotebook').output.result.result\n\n",
+						"value": "@activity('returnvaluenotebook').output.result.result",
 						"type": "Expression"
 					}
 				}
