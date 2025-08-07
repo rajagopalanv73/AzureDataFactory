@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "RunNotebook",
+				"name": "returnvaluenotebook",
 				"type": "SynapseNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -15,6 +15,18 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"notebook": {
+						"referenceName": {
+							"value": "return_value_notebook",
+							"type": "Expression"
+						},
+						"type": "NotebookReference"
+					},
+					"parameters": {
+						"undefined": {
+							"value": ""
+						}
+					},
 					"snapshot": true
 				},
 				"linkedServiceName": {
