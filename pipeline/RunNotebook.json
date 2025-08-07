@@ -57,6 +57,12 @@
 				}
 			}
 		],
+		"variables": {
+			"return_value_from_notebook": {
+				"type": "String",
+				"defaultValue": "@activity('RunNotebook').output.result.result"
+			}
+		},
 		"annotations": []
 	}
 }
