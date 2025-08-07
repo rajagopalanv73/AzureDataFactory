@@ -60,11 +60,6 @@
 				}
 			}
 		],
-		"variables": {
-			"returned_value_from_notebook": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }
