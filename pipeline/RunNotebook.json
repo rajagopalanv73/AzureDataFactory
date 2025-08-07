@@ -34,6 +34,27 @@
 					"referenceName": "AzureSynapseArtifacts1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "return_value",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "returnvaluenotebook",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "",
+					"value": ""
+				}
 			}
 		],
 		"annotations": []
