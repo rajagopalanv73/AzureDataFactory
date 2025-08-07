@@ -52,11 +52,8 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "returned_value_from_notebook",
-					"value": {
-						"value": "@activity('returnvaluenotebook').output.result",
-						"type": "Expression"
-					}
+					"variableName": "pipelineReturnValue",
+					"setSystemVariable": true
 				}
 			}
 		],
