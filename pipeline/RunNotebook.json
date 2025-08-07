@@ -23,8 +23,9 @@
 						"type": "NotebookReference"
 					},
 					"parameters": {
-						"undefined": {
-							"value": ""
+						"input_param": {
+							"value": "ADF",
+							"type": "string"
 						}
 					},
 					"snapshot": true
