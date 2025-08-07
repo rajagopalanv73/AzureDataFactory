@@ -54,7 +54,7 @@
 				"typeProperties": {
 					"variableName": "return_value",
 					"value": {
-						"value": "@activity('returnvaluenotebook').output.result",
+						"value": "@activity('returnvaluenotebook').output.result.syn_result",
 						"type": "Expression"
 					}
 				}
