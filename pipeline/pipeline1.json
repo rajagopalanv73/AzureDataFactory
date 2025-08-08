@@ -54,7 +54,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "received_value",
-					"value": ""
+					"value": {
+						"value": "@activity('testsynapse').output.exitresult",
+						"type": "Expression"
+					}
 				}
 			}
 		],
