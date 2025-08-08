@@ -13,7 +13,12 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "return_result_value",
+						"value": "@activity('returnvaluenotebook').output.result.syn_result"
+					}
+				],
 				"typeProperties": {
 					"notebook": {
 						"referenceName": {
@@ -38,9 +43,12 @@
 					},
 					"executorSize": "Small",
 					"conf": {
-						"spark.dynamicAllocation.enabled": true
+						"spark.dynamicAllocation.enabled": true,
+						"spark.dynamicAllocation.minExecutors": 3,
+						"spark.dynamicAllocation.maxExecutors": 3
 					},
-					"driverSize": "Small"
+					"driverSize": "Small",
+					"numExecutors": 3
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseArtifacts1",
@@ -64,8 +72,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "pipelineReturnValue",
-					"setSystemVariable": true
+					"variableName": "",
+					"value": {
+						"value": "@activity('returnvaluenotebook').output.result.syn_result",
+						"type": "Expression"
+					}
 				}
 			}
 		],
