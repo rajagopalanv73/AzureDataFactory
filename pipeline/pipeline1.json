@@ -37,6 +37,11 @@
 				}
 			}
 		],
+		"variables": {
+			"receivedvar": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
