@@ -28,7 +28,19 @@
 							"type": "string"
 						}
 					},
-					"snapshot": true
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": {
+							"value": "Spark1",
+							"type": "Expression"
+						},
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Small",
+					"conf": {
+						"spark.dynamicAllocation.enabled": true
+					},
+					"driverSize": "Small"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseArtifacts1",
@@ -52,11 +64,8 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "return_value",
-					"value": {
-						"value": "@activity('returnvaluenotebook').output.result.syn_result",
-						"type": "Expression"
-					}
+					"variableName": "pipelineReturnValue",
+					"setSystemVariable": true
 				}
 			}
 		],
