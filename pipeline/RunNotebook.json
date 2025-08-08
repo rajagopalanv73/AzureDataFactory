@@ -24,7 +24,7 @@
 					},
 					"parameters": {
 						"input_param": {
-							"value": "",
+							"value": "Calling from ADF",
 							"type": "string"
 						}
 					},
@@ -48,30 +48,6 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseArtifacts1",
 					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "return_value",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "returnvaluenotebook",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "return_value",
-					"value": {
-						"value": "@activity('returnvaluenotebook').output.result.syn_result",
-						"type": "Expression"
-					}
 				}
 			}
 		],
