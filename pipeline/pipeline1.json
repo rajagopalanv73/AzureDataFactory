@@ -55,7 +55,7 @@
 				"typeProperties": {
 					"variableName": "received_value",
 					"value": {
-						"value": "@activity('testsynapse').output.status",
+						"value": "@string(activity('testsynapse').output.status)",
 						"type": "Expression"
 					}
 				}
