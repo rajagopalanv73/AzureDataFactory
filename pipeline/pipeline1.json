@@ -35,13 +35,25 @@
 					"referenceName": "AzureSynapseArtifacts1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "testsynapse",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
 			}
 		],
-		"variables": {
-			"receivedvar": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }
