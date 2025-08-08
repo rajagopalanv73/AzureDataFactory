@@ -37,7 +37,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "receivedValueFromNotebook",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -51,9 +51,18 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "received_value",
+					"value": ""
+				}
 			}
 		],
+		"variables": {
+			"received_value": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
