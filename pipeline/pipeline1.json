@@ -55,7 +55,7 @@
 				"typeProperties": {
 					"variableName": "received_value",
 					"value": {
-						"value": "@string(activity('testsynapse').output.status)\n",
+						"value": "@string(json(activity('testsynapse').output.status).exitValue)\n\n",
 						"type": "Expression"
 					}
 				}
