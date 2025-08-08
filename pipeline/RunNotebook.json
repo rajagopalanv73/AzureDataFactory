@@ -39,7 +39,8 @@
 					"executorSize": "Small",
 					"conf": {
 						"spark.dynamicAllocation.enabled": false
-					}
+					},
+					"driverSize": "Small"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseArtifacts1",
@@ -77,11 +78,6 @@
 				}
 			}
 		],
-		"variables": {
-			"return_value": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }
