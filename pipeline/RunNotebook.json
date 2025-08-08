@@ -13,12 +13,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "return_result_value",
-						"value": "@activity('returnvaluenotebook').output.result.syn_result"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"notebook": {
 						"referenceName": {
@@ -29,7 +24,7 @@
 					},
 					"parameters": {
 						"input_param": {
-							"value": "ADF",
+							"value": "",
 							"type": "string"
 						}
 					},
