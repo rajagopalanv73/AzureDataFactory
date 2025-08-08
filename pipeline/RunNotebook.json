@@ -72,7 +72,8 @@
 						{
 							"key": "received_value",
 							"value": {
-								"type": "String"
+								"type": "String",
+								"content": "@activity(\"returnvaluenotebook\").output.result.syn_result"
 							}
 						}
 					],
