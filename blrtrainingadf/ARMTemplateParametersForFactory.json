@@ -41,6 +41,9 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://surrendl1.dfs.core.windows.net/"
 		},
+		"AzureKeyVaulttest_properties_typeProperties_baseUrl": {
+			"value": "https://kvsurrentechdev.vault.azure.net/"
+		},
 		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
 			"value": "surrenss.database.windows.net"
 		},
@@ -50,8 +53,20 @@
 		"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 			"value": "surren"
 		},
+		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+			"value": "https://stsynworkspace001.dev.azuresynapse.net"
+		},
 		"CSVLinkedService_properties_typeProperties_url": {
 			"value": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_server": {
+			"value": "surrenss.database.windows.net"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_database": {
+			"value": "surrendb1"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_userName": {
+			"value": "surren"
 		},
 		"stdflkdsvc001_properties_typeProperties_url": {
 			"value": "https://surrendl1.dfs.core.windows.net/"

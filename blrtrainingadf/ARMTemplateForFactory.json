@@ -55,6 +55,10 @@
 			"type": "string",
 			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
 		},
+		"AzureKeyVaulttest_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kvsurrentechdev.vault.azure.net/"
+		},
 		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "surrenss.database.windows.net"
@@ -67,9 +71,25 @@
 			"type": "string",
 			"defaultValue": "surren"
 		},
+		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://stsynworkspace001.dev.azuresynapse.net"
+		},
 		"CSVLinkedService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
 		},
 		"stdflkdsvc001_properties_typeProperties_url": {
 			"type": "string",
@@ -197,8 +217,7 @@
 								"datasetParameters": {
 									"DFSelectSourceStream": {},
 									"SelectedColumnsDfSink2Db": {}
-								},
-								"linkedServiceParameters": {}
+								}
 							},
 							"staging": {},
 							"compute": {
@@ -219,6 +238,55 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DFReadCSVSource')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/EmpTrainingPipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "EmpTrgDataFlow001",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "EmployeeDataSource",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"EmpDataSetSource": {},
+									"EmpDataSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Data_Flow_Pipelines"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/EmployeeDataSource')]"
 			]
 		},
 		{
@@ -259,6 +327,56 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/VariableUsagePipeline')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/JoinPipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "JoinDataFlowActivity",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "JoinDataFlow",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"JoinTable1Source": {},
+									"JoinSecondTableSource": {},
+									"JoinDummyTableSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Data_Flow_Pipelines"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/JoinDataFlow')]"
 			]
 		},
 		{
@@ -1148,6 +1266,149 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/synapsepipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "SynapseNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebook": {
+								"referenceName": {
+									"value": "14_Word_count_PySpark_Program_Practical",
+									"type": "Expression"
+								},
+								"type": "NotebookReference"
+							},
+							"parameters": {
+								"textdata": {
+									"value": {
+										"value": "Error message: hash_empty_error: Hash value cannot be processed because it is empty. Please verify that your redirectUri is not clearing the hash. For more visit: aka.ms/msaljs/browser-errors",
+										"type": "Expression"
+									},
+									"type": "string"
+								}
+							},
+							"snapshot": true,
+							"sparkPool": {
+								"referenceName": {
+									"value": "Spark1",
+									"type": "Expression"
+								},
+								"type": "BigDataPoolReference"
+							},
+							"executorSize": "Small",
+							"conf": {
+								"spark.dynamicAllocation.enabled": false,
+								"spark.dynamicAllocation.minExecutors": 3,
+								"spark.dynamicAllocation.maxExecutors": 3
+							},
+							"driverSize": "Small",
+							"numExecutors": 3
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSynapseArtifacts1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifacts1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/testKeyvault')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "testkeyvault",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "sqlConTestKeyVault",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Data_Movement_Pipelines"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/testkeyvault')]",
+				"[concat(variables('factoryId'), '/datasets/sqlConTestKeyVault')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/BinaryDataDestination')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1264,6 +1525,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/CountrySortedSelectedDbSink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "CountrySortedSelected"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_SelectSink')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1343,7 +1625,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "TrfdOrdersNewDataFlow"
+					"table": "OrdersNewSelectedColumns"
 				}
 			},
 			"dependsOn": [
@@ -1372,6 +1654,284 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DsSelectColumns2Db')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "OrdersNewSelectedColumns"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/EmpDataSinkActivity')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "EmployeeTable"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/EmpSrcDataSet001')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "employee_data.csv",
+						"folderPath": "empdataset",
+						"fileSystem": "surrencontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "EmpID",
+						"type": "String"
+					},
+					{
+						"name": "FirstName",
+						"type": "String"
+					},
+					{
+						"name": "LastName",
+						"type": "String"
+					},
+					{
+						"name": "StartDate",
+						"type": "String"
+					},
+					{
+						"name": "ExitDate",
+						"type": "String"
+					},
+					{
+						"name": "Title",
+						"type": "String"
+					},
+					{
+						"name": "Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "ADEmail",
+						"type": "String"
+					},
+					{
+						"name": "BusinessUnit",
+						"type": "String"
+					},
+					{
+						"name": "EmployeeStatus",
+						"type": "String"
+					},
+					{
+						"name": "EmployeeType",
+						"type": "String"
+					},
+					{
+						"name": "PayZone",
+						"type": "String"
+					},
+					{
+						"name": "EmployeeClassificationType",
+						"type": "String"
+					},
+					{
+						"name": "TerminationType",
+						"type": "String"
+					},
+					{
+						"name": "TerminationDescription",
+						"type": "String"
+					},
+					{
+						"name": "DepartmentType",
+						"type": "String"
+					},
+					{
+						"name": "Division",
+						"type": "String"
+					},
+					{
+						"name": "DOB",
+						"type": "String"
+					},
+					{
+						"name": "State",
+						"type": "String"
+					},
+					{
+						"name": "JobFunctionDescription",
+						"type": "String"
+					},
+					{
+						"name": "GenderCode",
+						"type": "String"
+					},
+					{
+						"name": "LocationCode",
+						"type": "String"
+					},
+					{
+						"name": "RaceDesc",
+						"type": "String"
+					},
+					{
+						"name": "MaritalDesc",
+						"type": "String"
+					},
+					{
+						"name": "Performance Score",
+						"type": "String"
+					},
+					{
+						"name": "Current Employee Rating",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/JoinDFDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "emp"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/JoinDFSecondDataSet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "DATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "COUNTRY",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PRODUCT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SALES",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Filename",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Author",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "sales"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/JoinSQLdbSinkStream')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConndf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dummyjointable"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
 			]
 		},
 		{
@@ -1587,6 +2147,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/sqlConTestKeyVault')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sqlConnKeyVaultCredentials",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "keyvaulttable"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/sqlConnKeyVaultCredentials')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sqladdcolumn')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1741,6 +2322,60 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/testkeyvault')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "OrdersNew.csv",
+						"folderPath": "surreninput",
+						"fileSystem": "surrencontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "String"
+					},
+					{
+						"name": "ProductKey",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "EnglishProductName",
+						"type": "String"
+					},
+					{
+						"name": "SalesAmount",
+						"type": "String"
+					},
+					{
+						"name": "TaxAmt",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AdfSurrenSqlConnection')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1780,6 +2415,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVaulttest')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVaulttest_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseConndf')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1797,6 +2445,21 @@
 						"type": "SecureString",
 						"value": "[parameters('AzureSqlDatabaseConndf_password')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseArtifacts1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSynapseArtifacts",
+				"typeProperties": {
+					"endpoint": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/8774ea03-f374-4890-bea0-d9a4a9430be4/resourceGroups/SynapseResourceGroup/providers/Microsoft.Synapse/workspaces/stsynworkspace001"
 				}
 			},
 			"dependsOn": []
@@ -1830,6 +2493,34 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sqlConnKeyVaultCredentials')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('sqlConnKeyVaultCredentials_properties_typeProperties_server')]",
+					"database": "[parameters('sqlConnKeyVaultCredentials_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('sqlConnKeyVaultCredentials_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "AzureKeyVaulttest",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "sqlpassword"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVaulttest')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/stdflkdsvc001')]",
@@ -1916,6 +2607,253 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/CopyDataPipeline1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SelfHostedIR')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DFReadCSVSource')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ReadCSVDataFlowDataSetOrdersNew",
+								"type": "DatasetReference"
+							},
+							"name": "DFSelectSourceStream"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "CountrySortedSelectedDbSink",
+								"type": "DatasetReference"
+							},
+							"name": "SelectedColumnsDfSink2Db"
+						}
+					],
+					"transformations": [
+						{
+							"name": "SelectColumnsTrf"
+						},
+						{
+							"name": "SortOnSelectColumns"
+						},
+						{
+							"name": "FilterForIndia"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          OrderDate as date 'dd-MM-yyyy',",
+						"          ProductKey as short,",
+						"          Country as string,",
+						"          EnglishProductName as string,",
+						"          SalesAmount as double,",
+						"          TaxAmt as double",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> DFSelectSourceStream",
+						"DFSelectSourceStream select(mapColumn(",
+						"          {Order Date} = OrderDate,",
+						"          Country,",
+						"          {English Product Name} = EnglishProductName,",
+						"          {Sales Amount} = SalesAmount",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
+						"SelectColumnsTrf sort(asc(Country, true),",
+						"     caseInsensitive: true) ~> SortOnSelectColumns",
+						"SortOnSelectColumns filter(Country=='Canada') ~> FilterForIndia",
+						"FilterForIndia sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> SelectedColumnsDfSink2Db"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ReadCSVDataFlowDataSetOrdersNew')]",
+				"[concat(variables('factoryId'), '/datasets/CountrySortedSelectedDbSink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/EmployeeDataSource')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "EmpSrcDataSet001",
+								"type": "DatasetReference"
+							},
+							"name": "EmpDataSetSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "EmpDataSinkActivity",
+								"type": "DatasetReference"
+							},
+							"name": "EmpDataSink"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          EmpID as short,",
+						"          FirstName as string,",
+						"          LastName as string,",
+						"          StartDate as date 'dd-MM-yyyy',",
+						"          ExitDate as date 'dd-MM-yyyy',",
+						"          Title as string,",
+						"          Supervisor as string,",
+						"          ADEmail as string,",
+						"          BusinessUnit as string,",
+						"          EmployeeStatus as string,",
+						"          EmployeeType as string,",
+						"          PayZone as string,",
+						"          EmployeeClassificationType as string,",
+						"          TerminationType as string,",
+						"          TerminationDescription as string,",
+						"          DepartmentType as string,",
+						"          Division as string,",
+						"          DOB as date 'dd-MM-yyyy',",
+						"          State as string,",
+						"          JobFunctionDescription as string,",
+						"          GenderCode as string,",
+						"          LocationCode as integer,",
+						"          RaceDesc as string,",
+						"          MaritalDesc as string,",
+						"          {Performance Score} as string,",
+						"          {Current Employee Rating} as short",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> EmpDataSetSource",
+						"EmpDataSetSource sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     recreate:true,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> EmpDataSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/EmpSrcDataSet001')]",
+				"[concat(variables('factoryId'), '/datasets/EmpDataSinkActivity')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/JoinDataFlow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "JoinDFDataset",
+								"type": "DatasetReference"
+							},
+							"name": "JoinTable1Source"
+						},
+						{
+							"dataset": {
+								"referenceName": "JoinDFSecondDataSet",
+								"type": "DatasetReference"
+							},
+							"name": "JoinSecondTableSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "JoinSQLdbSinkStream",
+								"type": "DatasetReference"
+							},
+							"name": "JoinDummyTableSink"
+						}
+					],
+					"transformations": [
+						{
+							"name": "JoinExpression1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          ID as integer,",
+						"          FirstName as string,",
+						"          LastName as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> JoinTable1Source",
+						"source(output(",
+						"          DATE as string,",
+						"          COUNTRY as string,",
+						"          PRODUCT as string,",
+						"          SALES as string,",
+						"          Filename as string,",
+						"          Author as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> JoinSecondTableSource",
+						"JoinTable1Source, JoinSecondTableSource join(FirstName == PRODUCT,",
+						"     joinType:'outer',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> JoinExpression1",
+						"JoinExpression1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> JoinDummyTableSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/JoinDFDataset')]",
+				"[concat(variables('factoryId'), '/datasets/JoinDFSecondDataSet')]",
+				"[concat(variables('factoryId'), '/datasets/JoinSQLdbSinkStream')]"
 			]
 		},
 		{
@@ -2153,122 +3091,98 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DFReadCSVSource')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
+			"name": "[concat(parameters('factoryName'), '/RunNotebook')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "ReadCSVDataFlowDataSetOrdersNew",
-								"type": "DatasetReference"
-							},
-							"name": "DFSelectSourceStream"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "CountrySortedSelectedDbSink",
-								"type": "DatasetReference"
-							},
-							"name": "SelectedColumnsDfSink2Db"
-						}
-					],
-					"transformations": [
-						{
-							"name": "SelectColumnsTrf"
+				"activities": [
+					{
+						"name": "returnvaluenotebook",
+						"type": "SynapseNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
 						},
-						{
-							"name": "SortOnSelectColumns"
+						"userProperties": [],
+						"typeProperties": {
+							"notebook": {
+								"referenceName": {
+									"value": "return_value_notebook",
+									"type": "Expression"
+								},
+								"type": "NotebookReference"
+							},
+							"parameters": {
+								"input_param": {
+									"value": "Calling from ADF",
+									"type": "string"
+								}
+							},
+							"snapshot": true,
+							"sparkPool": {
+								"referenceName": {
+									"value": "Spark1",
+									"type": "Expression"
+								},
+								"type": "BigDataPoolReference"
+							},
+							"executorSize": "Small",
+							"conf": {
+								"spark.dynamicAllocation.enabled": false
+							}
 						},
-						{
-							"name": "FilterForIndia"
+						"linkedServiceName": {
+							"referenceName": "AzureSynapseArtifacts1",
+							"type": "LinkedServiceReference"
 						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          OrderDate as date 'dd-MM-yyyy',",
-						"          ProductKey as short,",
-						"          Country as string,",
-						"          EnglishProductName as string,",
-						"          SalesAmount as double,",
-						"          TaxAmt as double",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> DFSelectSourceStream",
-						"DFSelectSourceStream select(mapColumn(",
-						"          {Order Date} = OrderDate,",
-						"          Country,",
-						"          {English Product Name} = EnglishProductName,",
-						"          {Sales Amount} = SalesAmount",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> SelectColumnsTrf",
-						"SelectColumnsTrf sort(asc(Country, true),",
-						"     caseInsensitive: true) ~> SortOnSelectColumns",
-						"SortOnSelectColumns filter(Country=='Canada') ~> FilterForIndia",
-						"FilterForIndia sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> SelectedColumnsDfSink2Db"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ReadCSVDataFlowDataSetOrdersNew')]",
-				"[concat(variables('factoryId'), '/datasets/CountrySortedSelectedDbSink')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DsSelectColumns2Db')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabaseConndf",
-					"type": "LinkedServiceReference"
+					},
+					{
+						"name": "Return_Variable",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "returnvaluenotebook",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pipelineReturnValue",
+							"value": [
+								{
+									"key": "received_value",
+									"value": {
+										"type": "String",
+										"content": "@activity(\"returnvaluenotebook\").output.result.syn_result"
+									}
+								}
+							],
+							"setSystemVariable": true
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
 				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "OrdersNewSelectedColumns"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CountrySortedSelectedDbSink')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabaseConndf",
-					"type": "LinkedServiceReference"
+				"variables": {
+					"return_value": {
+						"type": "String"
+					}
 				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "CountrySortedSelected"
-				}
+				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConndf')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifacts1')]"
 			]
 		}
 	]

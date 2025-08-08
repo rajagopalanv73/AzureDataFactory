@@ -55,6 +55,10 @@
 			"type": "string",
 			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
 		},
+		"AzureKeyVaulttest_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kvsurrentechdev.vault.azure.net/"
+		},
 		"AzureSqlDatabaseConndf_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "surrenss.database.windows.net"
@@ -67,9 +71,25 @@
 			"type": "string",
 			"defaultValue": "surren"
 		},
+		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://stsynworkspace001.dev.azuresynapse.net"
+		},
 		"CSVLinkedService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://surrendl1.dfs.core.windows.net/"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "surrenss.database.windows.net"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "surrendb1"
+		},
+		"sqlConnKeyVaultCredentials_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "surren"
 		},
 		"stdflkdsvc001_properties_typeProperties_url": {
 			"type": "string",
@@ -154,6 +174,9 @@
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
+					"AzureKeyVaulttest_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVaulttest_properties_typeProperties_baseUrl')]"
+					},
 					"AzureSqlDatabaseConndf_properties_typeProperties_server": {
 						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_server')]"
 					},
@@ -162,6 +185,9 @@
 					},
 					"AzureSqlDatabaseConndf_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSqlDatabaseConndf_properties_typeProperties_userName')]"
+					},
+					"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+						"value": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]"
 					},
 					"CSVLinkedService_properties_typeProperties_url": {
 						"value": "[parameters('CSVLinkedService_properties_typeProperties_url')]"
@@ -198,6 +224,15 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"sqlConnKeyVaultCredentials_properties_typeProperties_server": {
+						"value": "[parameters('sqlConnKeyVaultCredentials_properties_typeProperties_server')]"
+					},
+					"sqlConnKeyVaultCredentials_properties_typeProperties_database": {
+						"value": "[parameters('sqlConnKeyVaultCredentials_properties_typeProperties_database')]"
+					},
+					"sqlConnKeyVaultCredentials_properties_typeProperties_userName": {
+						"value": "[parameters('sqlConnKeyVaultCredentials_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -223,6 +258,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'blrtrainingadf_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "blrtrainingadf_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blrtrainingadf_ArmTemplate_2')]"
 			]
 		}
 	]
